@@ -1,5 +1,5 @@
-import { prismaClient } from "../application/database";
-import contactService from "../service/contact-service";
+import { prismaClient } from "../application/database.js";
+import contactService from "../service/contact-service.js";
 
 
 

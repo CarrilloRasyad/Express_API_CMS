@@ -1,3 +1,5 @@
+import addressController from "../controller/address-controller.js";
+import express from "express";
 import contactController from "../controller/contact-controller.js";
 import userController from "../controller/user-controller.js";
 import { authMiddleWare } from "../middleware/auth-middleware.js";
@@ -19,3 +21,12 @@ userRoute.delete('/api/contacts/:contactId', contactController.remove);
 userRoute.get('/api/contacts', contactController.search);
 
 // Addresses API
+userRoute.post('/api/contacts/:contactId/addresses', addressController.create);
+userRoute.get('/api/contacts/:contactId/addresses/:addressId', addressController.get);
+userRoute.put('/api/contacts/:contactId/addresses/:addressId', addressController.update);
+userRoute.delete('/api/contacts/:contactId/addresses/:addressId', addressController.remove);
+userRoute.get('/api/contacts/:contactId/addresses', addressController.list);
+
+export {
+    userRoute
+}
