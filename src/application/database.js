@@ -8,29 +8,29 @@ export const prismaClient = new PrismaClient({
             level: 'query',
         },
         {
-            emit: 'stdout',
+            emit: 'event',
             level: 'error',
         },
         {
-            emit: 'stdout',
+            emit: 'event',
             level: 'info',
         },
         {
-            emit: 'stdout',
+            emit: 'event',
             level: 'warn'
-        }
+        },
     ],
 });
 
 prismaClient.$on('error', (e) => {
     logger.error(e);
-})
+});
 prismaClient.$on('warn', (e) => {
     logger.warn(e);
-})
+});
 prismaClient.$on('info', (e) => {
     logger.info(e);
-})
+});
 prismaClient.$on('query', (e) => {
     logger.info(e);
-})
+});

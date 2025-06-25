@@ -1,6 +1,10 @@
 import { prismaClient } from "../application/database.js";
 import { ResponseError } from "../error/response-error.js";
-import { createContactValidation, getContactValidation, searchContactValidation, updateContactValidation } from "../validation/contact-validation.js"
+import { 
+        createContactValidation, 
+        getContactValidation, 
+        searchContactValidation, 
+        updateContactValidation } from "../validation/contact-validation.js"
 import { validate } from "../validation/validation.js"
 
 const create = async(request) => {
@@ -43,12 +47,12 @@ const get = async(user, contactId) => {
 }
 
 const update = async(user,request) => {
-    const contactUpdate = validate(updateContactValidation, request);
+    const contact = validate(updateContactValidation, request);
 
     const totalContact = await prismaClient.contact.count({
         where: {
             username: user.username,
-            id: contactId
+            id: contact.id
         }
     });
 
@@ -58,7 +62,7 @@ const update = async(user,request) => {
 
     return prismaClient.contact.update({
         where: {
-            id: contactId
+            id: contact.id
         },
         data: {
             first_name: contact.first_name,
@@ -100,7 +104,7 @@ const remove = async(user, contactId) => {
 const search = async(user, request) => {
     request = validate(searchContactValidation, request);
 
-    const skip = (request.page -1) * request.size;
+    const skip = (request.page - 1) * request.size;
 
     const filters = [];
 
@@ -160,7 +164,7 @@ const search = async(user, request) => {
         paging: {
             page: request.page,
             total_item: totalItems,
-            total_page: Math.ceil(totalItems/request.size)
+            total_page: Math.ceil(totalItems / request.size)
         }
     }
 }
