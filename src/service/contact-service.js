@@ -7,9 +7,10 @@ import {
         updateContactValidation } from "../validation/contact-validation.js"
 import { validate } from "../validation/validation.js"
 
-const create = async(request) => {
+const create = async(user, request) => {
     const contact = validate(createContactValidation, request);
     contact.username = user.username;
+
 
     return prismaClient.contact.create({
         data: contact,
