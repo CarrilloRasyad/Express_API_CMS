@@ -82,7 +82,7 @@ const update = async(user,request) => {
 }
 
 const remove = async(user, contactId) => {
-    contactId = validate(getContactValidation.contactId);
+    contactId = validate(getContactValidation, contactId);
 
     const totalContact = await prismaClient.contact.count({
         where: {

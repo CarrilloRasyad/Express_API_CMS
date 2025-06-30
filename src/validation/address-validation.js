@@ -5,7 +5,7 @@ const createAddressValidation = Joi.object({
     city: Joi.string().max(100).optional(),
     province: Joi.string().max(100).optional(),
     country: Joi.string().max(100).required(),
-    postal_code: Joi.string().max(100).required()
+    postal_code: Joi.string().max(10).required()
 });
 
 const updateAddressValidation = Joi.object({
@@ -14,7 +14,7 @@ const updateAddressValidation = Joi.object({
     city: Joi.string().max(100).optional(),
     province: Joi.string().max(100).optional(),
     country: Joi.string().max(100).required(),
-    postal_code: Joi.string().max(100).required()
+    postal_code: Joi.string().max(10).required()
 });
 
 const getAddressValidation = Joi.number().min(1).positive().required();
