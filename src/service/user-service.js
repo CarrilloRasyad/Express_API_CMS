@@ -23,6 +23,9 @@ const register = async(request) => {
         throw new ResponseError(400, "Username sudah ada");
     }
 
+    if(user.password.length < 6) {
+        throw new ResponseError(400, "Panjang password tidak boleh kurang dari 6 karakter");
+    }
     user.password = await bcrypt.hash(user.password, 10);
 
     return prismaClient.user.create({
@@ -54,6 +57,11 @@ const login = async(request) => {
     const isPasswordValid = await bcrypt.compare(login.password, user.password);
     if(!isPasswordValid) {
         throw new ResponseError(401, "Username atau Password salah");
+    }
+
+    const invalidPassword = await bcrypt.compare(login.password, user.password);
+    if(invalidPassword.length() != 6) {
+        throw new ResponseError(400, "Password kurang dari 6");
     }
 
     const token = uuid().toString();
